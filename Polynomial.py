@@ -1,5 +1,10 @@
+from applicable import Applicable
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+import Function as func
 
-class Polynomial:
+class Polynomial(Applicable):
 
     elements = []
 
@@ -8,9 +13,21 @@ class Polynomial:
         
         self.degree = degree
 
-        for i in range(degree):
-            self.elements.append(0)
+        self.elements = np.zeros(self.degree)
     
+    def __str__(self):
+        
+        st = ""
+        for i in range(self.degree-1,-1,-1):
+            
+            if(i == 0):
+                st += "{}x^{}".format(self.get_coeff(i),i)
+            
+            else:    
+                st += "{}x^{} + ".format(self.get_coeff(i),i)
+        
+        return st
+
     def add_element(self, degree, val):
         self.elements[degree] = val        
 
@@ -30,11 +47,11 @@ class Polynomial:
         
         new_poly = Polynomial(larger_degree)
         for i in range(smaller_degree):
-            new_poly.add_element(degree, (self.get_coeff(i) + other.get_coeff(i)))
+            new_poly.add_element(self.degree, (self.get_coeff(i) + other.get_coeff(i)))
 
         if(smaller_degree != larger_degree):
             for i in range(smaller_degree, larger_degree):
-                new_poly.add_element(degree, t.get_coeff(i))
+                new_poly.add_element(self.degree, t.get_coeff(i))
             
         return new_poly
 
@@ -53,8 +70,14 @@ class Polynomial:
     def apply(self, x):
         
         result = 0
+        
         for i in range(self.degree):
-            result += math.pow(x,i) * self.get_coeff(i)
+            if Applicable((self.get_coeff(i))):
+                print("Hi")
+                result += math.pow(x,i) * self.get_coeff(i).apply(x)
+            else:
+                result += math.pow(x,i) * self.get_coeff(i)
+
         return result
     
     def plot(self):
@@ -65,5 +88,15 @@ class Polynomial:
             plotable.append(self.apply(i))
         
         plt.plot(t, plotable)
+        plt.title(self)
+        plt.ylabel("f(x)")
+        plt.xlabel("x")
         plt.show()
 
+
+t = Polynomial(4)
+ex = func.ExponentialFunction(1, func.periodic_function(1,1,1,1))
+t.set_elements([1,ex,3,4])
+print(t.apply(3))
+print(t)
+t.plot()

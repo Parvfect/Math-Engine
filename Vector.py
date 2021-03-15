@@ -1,6 +1,5 @@
 
-from numpy.lib.arraysetops import isin
-from math_engine import Matrix
+import Matrix as mat
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,6 +10,17 @@ class Vector:
         self.dimensions = dimensions
         self.elements = elements
     
+    def equals(self, other):
+        
+        if not isinstance(other, Vector) or self.dimensions != other.dimensions:
+            return False
+        
+        else:
+            for i in range(self.dimensions):
+                if(self.get_element(i) != other.get_element(i)):
+                    return False
+        
+        return True
     
     def get_element(self, p):
         return self.elements[p]
@@ -75,7 +85,7 @@ class Vector:
 
     def transform(self, other):
 
-        assert isinstance(other, Matrix)
+        assert isinstance(other, mat.Matrix)
         
         t = Vector(self.dimensions, np.zeros(self.dimensions))
         
@@ -85,6 +95,7 @@ class Vector:
         else:
             value = 0.0
             for i in range(self.dimensions):
+                value = 0.0
                 for j in range(self.dimensions):
                     value += other.get_element(i,j) * self.get_element(j)
                 
@@ -93,4 +104,3 @@ class Vector:
         
         return t
 
-    

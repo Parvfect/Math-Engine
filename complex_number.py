@@ -113,7 +113,5 @@ class ComplexNumber:
         plt.show()
 
 
-t = ComplexNumber(3,4)
-print(t)
-t.plot()
+
 
