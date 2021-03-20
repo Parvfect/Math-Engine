@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import Function as func
+import numerical_differentiation as diff
 
 class Polynomial(Applicable):
 
@@ -72,11 +73,12 @@ class Polynomial(Applicable):
         result = 0
         
         for i in range(self.degree):
-            if Applicable((self.get_coeff(i))):
+            """if Applicable((self.get_coeff(i))):
                 print("Hi")
                 result += math.pow(x,i) * self.get_coeff(i).apply(x)
             else:
-                result += math.pow(x,i) * self.get_coeff(i)
+                """
+            result += math.pow(x,i) * self.get_coeff(i)
 
         return result
     
@@ -93,10 +95,11 @@ class Polynomial(Applicable):
         plt.xlabel("x")
         plt.show()
 
+def random_test():
+    t = Polynomial(4)
+    ex = func.ExponentialFunction(1, func.periodic_function(1,1,1,1))
+    t.set_elements([1,ex,3,4])
+    print(t.apply(3))
+    print(t)
+    t.plot()
 
-t = Polynomial(4)
-ex = func.ExponentialFunction(1, func.periodic_function(1,1,1,1))
-t.set_elements([1,ex,3,4])
-print(t.apply(3))
-print(t)
-t.plot()

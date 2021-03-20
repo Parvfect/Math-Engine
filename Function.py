@@ -100,10 +100,7 @@ class periodic_function(Applicable):
         return "{}sin ^ {} x + {}cos ^ {} x".format(self.sin_coeff, self.sin_pow, self.cos_coeff, self.cos_pow)
 
     def apply(self, x):
-        if isinstance(self.sin_coeff, Applicable) and isinstance(self.cos_coeff, Applicable):
-            return self.sin_coeff.apply(x) * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff.apply(x) * math.pow(math.cos(x), self.cos_pow)
-        else:
-            return self.sin_coeff * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff * math.pow(math.cos(x), self.cos_pow)
+        return self.sin_coeff * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff * math.pow(math.cos(x), self.cos_pow)
 
     def plot(self):
         t = np.arange(0,10,0.01)
@@ -117,3 +114,6 @@ def test_periodic():
     t = periodic_function(1,3,2,3)
     t.plot()
 
+def derivative_test():
+    t = periodic_function(1,0,1,0)
+    return t.five_point_derivative(0) == 1
