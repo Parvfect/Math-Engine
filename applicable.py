@@ -3,7 +3,9 @@
 import numerical_differentiation as diff
 
 class Applicable:
-
+    
+    isFunction = True
+    
     def __init__(self, func):
         try:
             func.apply(1)
@@ -19,3 +21,8 @@ class Applicable:
    
     def apply(self):
         return
+
+
+def isApplicable(x):
+
+    return issubclass(type(x), Applicable)
