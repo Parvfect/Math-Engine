@@ -73,12 +73,10 @@ class Polynomial(Applicable):
         result = 0
         
         for i in range(self.degree):
-            """if Applicable((self.get_coeff(i))):
-                print("Hi")
+                Applicable((self.get_coeff(i))):
                 result += math.pow(x,i) * self.get_coeff(i).apply(x)
             else:
-                """
-            result += math.pow(x,i) * self.get_coeff(i)
+                result += math.pow(x,i) * self.get_coeff(i)
 
         return result
     
@@ -102,4 +100,3 @@ def random_test():
     print(t.apply(3))
     print(t)
     t.plot()
-
