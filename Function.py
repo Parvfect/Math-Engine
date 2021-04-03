@@ -1,5 +1,5 @@
-from applicable import Applicable
-
+from applicable import Applicable, isApplicable
+import inspect
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,7 +35,7 @@ class rational_function(Applicable):
         for i in range(self.p2.degree):    
             denom += math.pow(x,i) * self.p2.get_coeff(i)
 
-        if isinstance(self.c, Applicable):
+        if isApplicable(self.c):
             return (self.c.apply * num/denom)
         else:
             return (self.c * num / denom)
@@ -66,10 +66,12 @@ class ExponentialFunction(Applicable):
         return "{}{}^{}".format(self.a, self.b, self.x)
 
     def apply(self,x):
-        if isinstance(self.a, Applicable) and isinstance(self.b,Applicable):
+        if isApplicable(self.a) and isApplicable(self.b):
             return self.a.apply(x) * math.pow(self.b.apply(x),x)
-        elif isinstance(self.b, Applicable):
+        elif isApplicable(self.b):
             return self.a* math.pow(self.b.apply(x), x)
+        elif isApplicable(self.a):
+            return self.a.apply(x) * math.pow(self.b, x)
         else:
             return self.a* math.pow(self.b,x)
 
@@ -100,10 +102,17 @@ class periodic_function(Applicable):
         return "{}sin ^ {} x + {}cos ^ {} x".format(self.sin_coeff, self.sin_pow, self.cos_coeff, self.cos_pow)
 
     def apply(self, x):
+
+        if isApplicable(self.sin_coeff):
+            return self.sin_coeff.apply(x) * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff * math.pow(math.cos(x), self.cos_pow)
+        
+        elif isApplicable(self.sin_coeff) and isApplicable(self.cos_coeff):    
+            return self.sin_coeff.apply(x) * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff.apply(x) * math.pow(math.cos(x), self.cos_pow)
+        
         return self.sin_coeff * math.pow(math.sin(x), self.sin_pow) + self.cos_coeff * math.pow(math.cos(x), self.cos_pow)
 
     def plot(self):
-        t = np.arange(0,10,0.01)
+        t = np.arange(0,100,0.01)
         s = [self.apply(i) for i in t]
         t = [(180*i/3.14) for i in t]
         plt.plot(t,s)
@@ -117,3 +126,4 @@ def test_periodic():
 def derivative_test():
     t = periodic_function(1,0,1,0)
     return t.five_point_derivative(0) == 1
+

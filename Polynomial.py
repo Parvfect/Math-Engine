@@ -1,4 +1,4 @@
-from applicable import Applicable
+from applicable import Applicable, isApplicable
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -73,7 +73,11 @@ class Polynomial(Applicable):
         result = 0
         
         for i in range(self.degree):
+<<<<<<< HEAD
                 Applicable((self.get_coeff(i))):
+=======
+            if isApplicable(self.get_coeff(i)):
+>>>>>>> 795bea09a33b7d289b18c0f30fe4af953bd15757
                 result += math.pow(x,i) * self.get_coeff(i).apply(x)
             else:
                 result += math.pow(x,i) * self.get_coeff(i)
@@ -95,8 +99,14 @@ class Polynomial(Applicable):
 
 def random_test():
     t = Polynomial(4)
-    ex = func.ExponentialFunction(1, func.periodic_function(1,1,1,1))
+    ex = func.periodic_function(1,1,1,1)
     t.set_elements([1,ex,3,4])
     print(t.apply(3))
     print(t)
     t.plot()
+<<<<<<< HEAD
+=======
+
+random_test()
+
+>>>>>>> 795bea09a33b7d289b18c0f30fe4af953bd15757
