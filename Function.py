@@ -52,7 +52,6 @@ class rational_function(Applicable):
 
 
 
-
 class ExponentialFunction(Applicable):
     """ Of form ab^x """
 

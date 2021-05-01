@@ -2,10 +2,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import numerical_integration as ode
+from Function import *
 
 # Generalise 
 
 """ Basically a chaotic system isn't it? 
+This is so fucking cool - I can visualise any simple differential equation now 
+Hell fucking yes. Let's integrate some fuctions inside it now
+
 class CoupledDifferetinalEquation():
     """
 
@@ -20,12 +24,14 @@ class DifferentialEquation():
         self.b = b
         self.c = c 
         self.d = d
-        self.y = [x,y]
+        self.y = np.array([x,y])
 
     def fz(self, Y, t):
         
         y1 = self.y[1]
-        self.z = (- self.b * y1  - self.c*Y - self.d)/self.a
+
+        # I need to make a better way of applicability here 
+        self.z = (- self.b * y1  - self.c*Y[0] - self.d)/self.a.apply(Y[0])
 
         return np.array([self.y[1], self.z])
     
@@ -74,5 +80,6 @@ class DifferentialEquation():
         plt.show()
 
 
-t = DifferentialEquation(1,1,1,1,2,3)
-t.solve(10000, 0.01, 1)
+p = periodic_function(1,0,1,0)
+t = DifferentialEquation(p,0,10,-1,2.0,3.0)
+t.solve(30000, 0.01, 2)

@@ -1,6 +1,6 @@
 # Generics - defining a class that every type inherits and must conform to
 
-import numerical_differentiation as diff
+from numerical_differentiation import differentiate, five_point_derivative
 
 class Applicable:
     
@@ -14,10 +14,10 @@ class Applicable:
             print("This is not an applicable type!")
     
     def differentiate(self, x):
-        return diff.differentiate(self.apply, x)
+        return differentiate(self.apply, x)
 
     def five_point_derivative(self, x):
-        return diff.five_point_derivative(self.apply, x)
+        return five_point_derivative(self.apply, x)
    
     def apply(self):
         return

@@ -2,6 +2,7 @@
 import Matrix as mat
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
 
 class Vector:
     #Representation of a n-dimensional vector
@@ -104,3 +105,14 @@ class Vector:
         
         return t
 
+    def plot(self):
+        print(self.elements.shape)
+
+        pca = PCA(n_components=2)
+        reduced = pca.fit_transform(M)
+
+        # We need a 2 x 944 array, not 944 by 2 (all X coordinates in one list)
+        t = reduced.transpose()
+
+        plt.scatter(t[0], t[1])
+        plt.show()
