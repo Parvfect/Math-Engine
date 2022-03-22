@@ -18,6 +18,6 @@ Future
 1) Remainder of Matrix operations
 2) Functional Polynomials
 3) Transformations (Fourier, laplace, Power series approximation)
-4) Differential Equations (computational appoximations)
+4) Differential Equations (computational approximations)
 5) Gui
 6) And more cool stuff...
